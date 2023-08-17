@@ -1,0 +1,30 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateStoreInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Mutation {
+  createStore(createStoreInput: CreateStoreInput!): Store!
+  removeStore(id: Int!): Store!
+  updateStore(updateStoreInput: UpdateStoreInput!): Store!
+}
+
+type Query {
+  store(id: Int!): Store!
+  stores: [Store!]!
+}
+
+type Store {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateStoreInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
