@@ -7,15 +7,29 @@ input CreateStoreInput {
   exampleField: Int!
 }
 
+type LoginResponse {
+  access_token: String!
+  user: User!
+}
+
+input LoginUserInput {
+  password: String!
+  username: String!
+}
+
 type Mutation {
   createStore(createStoreInput: CreateStoreInput!): Store!
+  login(loginUserInput: LoginUserInput!): LoginResponse!
   removeStore(id: Int!): Store!
+  signup(loginUserInput: LoginUserInput!): User!
   updateStore(updateStoreInput: UpdateStoreInput!): Store!
 }
 
 type Query {
   store(id: Int!): Store!
   stores: [Store!]!
+  user(username: String!): User!
+  users: [User!]!
 }
 
 type Store {
@@ -27,4 +41,9 @@ input UpdateStoreInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!
+}
+
+type User {
+  id: Int!
+  username: String!
 }
