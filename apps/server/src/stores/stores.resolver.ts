@@ -15,8 +15,6 @@ export class StoresResolver {
 
   @Query(() => [Store], { name: 'stores' })
   findAll() {
-    console.log('in find all');
-
     return this.storesService.findAll();
   }
 
