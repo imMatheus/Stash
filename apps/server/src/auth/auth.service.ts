@@ -16,31 +16,25 @@ export class AuthService {
     email: string,
     password: string,
   ): Promise<BaseUser | null> {
-    console.log('hej hej 5666');
     const user = await this.usersService.findByEmail(email);
-    console.log('6');
 
     if (!user) {
       return null;
     }
-    console.log('7');
 
     const account = await this.usersService.findAccountForUser({
       userId: user.id,
     });
-    console.log('8');
 
     if (!account) {
       return null;
     }
-    console.log('9');
 
     const isValidPassword = await compare(password, account.password);
 
     if (isValidPassword) {
       return user;
     }
-    console.log('10');
 
     return null;
   }

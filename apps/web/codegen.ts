@@ -1,7 +1,6 @@
 import type { CodegenConfig } from "@graphql-codegen/cli";
 
 const codegenConfig: CodegenConfig = {
-  // the hard coded link is only needed for the "codegen" script as it can't load the config variable
   schema: "http://localhost:4000/graphql",
   overwrite: true,
   documents: ["src/**/*.{ts,tsx}"],
