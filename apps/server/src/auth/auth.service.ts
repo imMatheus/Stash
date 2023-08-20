@@ -4,6 +4,7 @@ import { BaseUser } from 'src/users/entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import { LoginUserInput } from './dto/login-user.input';
 import { compare } from 'bcrypt';
+import { LoginResponse } from './dto/login-response';
 
 @Injectable()
 export class AuthService {
@@ -39,7 +40,7 @@ export class AuthService {
     return null;
   }
 
-  async login(user: BaseUser) {
+  async login(user: BaseUser): Promise<LoginResponse> {
     console.log('jjjjasasas');
 
     return {
@@ -51,15 +52,25 @@ export class AuthService {
     };
   }
 
-  async signup(loginUserInput: LoginUserInput): Promise<BaseUser | null> {
-    console.log('55555');
-    const user = await this.usersService.findByEmail(loginUserInput.email);
+  async signup(loginUserInput: LoginUserInput): Promise<LoginResponse> {
+    const userWithEmail = await this.usersService.findByEmail(
+      loginUserInput.email,
+    );
 
-    if (user) {
-      throw new Error('User already exists');
-      return null;
+    if (userWithEmail) {
+      throw new Error(
+        `User with the email address ${loginUserInput.email} already exists`,
+      );
     }
 
-    return this.usersService.create(loginUserInput);
+    const createdUser = await this.usersService.create(loginUserInput);
+
+    return {
+      access_token: this.jwtService.sign({
+        username: createdUser.username,
+        sub: createdUser.id,
+      }),
+      user: createdUser,
+    };
   }
 }

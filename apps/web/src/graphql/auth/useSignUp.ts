@@ -3,12 +3,14 @@ import { graphql } from "~/generated/graphql";
 
 const SIGN_UP_MUTATION = graphql(/* GraphQL */ `
   mutation SignUpMutation($params: LoginUserInput!) {
-    signup(loginUserInput: $params) {
-      id
-      profileImage
-      createdAt
-      updatedAt
-      username
+    signup(signUpInput: $params) {
+      access_token
+      user {
+        id
+        profileImage
+        username
+        createdAt
+      }
     }
   }
 `);

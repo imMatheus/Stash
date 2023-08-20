@@ -31,6 +31,10 @@ const SignUp: NextPage = () => {
         },
       });
 
+      if (res.data) {
+        localStorage.setItem("auth-token", res.data.signup.access_token);
+      }
+
       console.log("got ressssss");
 
       console.log(res);

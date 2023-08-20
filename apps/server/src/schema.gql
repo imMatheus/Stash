@@ -41,7 +41,7 @@ type Mutation {
   createStore(createStoreInput: CreateStoreInput!): Store!
   login(loginUserInput: LoginUserInput!): LoginResponse!
   removeStore(id: Int!): Store!
-  signup(loginUserInput: LoginUserInput!): BaseUser!
+  signup(signUpInput: LoginUserInput!): LoginResponse!
   updateStore(updateStoreInput: UpdateStoreInput!): Store!
 }
 

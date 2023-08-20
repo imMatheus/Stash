@@ -422,7 +422,7 @@
             "description": null,
             "args": [
               {
-                "name": "loginUserInput",
+                "name": "signUpInput",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
@@ -443,7 +443,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "BaseUser",
+                "name": "LoginResponse",
                 "ofType": null
               }
             },
