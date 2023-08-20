@@ -46,9 +46,10 @@ type Mutation {
 }
 
 type Query {
+  me: BaseUser
   store(id: Int!): Store!
   stores: [Store!]!
-  user(email: String!): BaseUser!
+  user(email: String!): BaseUser
   users: [BaseUser!]!
 }
 

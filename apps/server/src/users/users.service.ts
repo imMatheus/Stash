@@ -68,4 +68,13 @@ export class UsersService {
 
     return account?.user;
   }
+
+  async findUserById(userId: string): Promise<BaseUser | null> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: BaseUserPrismaSelect,
+    });
+
+    return user;
+  }
 }

@@ -8,7 +8,7 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Query(() => [BaseUser], { name: 'users' })
   findAll(@Context() context) {
     console.log({ context: context.req.user });
@@ -16,8 +16,14 @@ export class UsersResolver {
     return this.usersService.findAll();
   }
 
-  @Query(() => BaseUser, { name: 'user' })
-  findOne(@Args('email') email: string) {
+  @Query(() => BaseUser, { name: 'user', nullable: true })
+  findOneByEmail(@Args('email') email: string) {
     return this.usersService.findByEmail(email);
+  }
+
+  @Query(() => BaseUser, { name: 'me', nullable: true })
+  @UseGuards(JwtAuthGuard)
+  me(@Context() context) {
+    return this.usersService.findUserById(context.req.user.userId);
   }
 }
