@@ -2,34 +2,54 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type BaseAccount {
+  createdAt: DateTime!
+  email: String!
+  id: String!
+  updatedAt: DateTime!
+}
+
+type BaseUser {
+  createdAt: DateTime!
+  id: String!
+  profileImage: String!
+  updatedAt: DateTime!
+  username: String
+}
+
 input CreateStoreInput {
   """Example field (placeholder)"""
   exampleField: Int!
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type LoginResponse {
   access_token: String!
-  user: User!
+  user: BaseUser!
 }
 
 input LoginUserInput {
+  email: String!
   password: String!
-  username: String!
 }
 
 type Mutation {
   createStore(createStoreInput: CreateStoreInput!): Store!
   login(loginUserInput: LoginUserInput!): LoginResponse!
   removeStore(id: Int!): Store!
-  signup(loginUserInput: LoginUserInput!): User!
+  signup(loginUserInput: LoginUserInput!): BaseUser!
   updateStore(updateStoreInput: UpdateStoreInput!): Store!
 }
 
 type Query {
   store(id: Int!): Store!
   stores: [Store!]!
-  user(username: String!): User!
-  users: [User!]!
+  user(email: String!): BaseUser!
+  users: [BaseUser!]!
 }
 
 type Store {
@@ -41,9 +61,4 @@ input UpdateStoreInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!
-}
-
-type User {
-  id: Int!
-  username: String!
 }

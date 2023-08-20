@@ -1,30 +1,71 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserInput } from './dto/create-user.input';
+import { PrismaService } from 'src/prisma.service';
+import { hash } from 'bcrypt';
+import { BaseUser, BaseUserPrismaSelect } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
-  private readonly users = [
-    { id: 1, username: 'marius', password: 'abc' },
-    { id: 2, username: 'matheus', password: '123' },
-    { id: 4, username: 'adam', password: 'erf' },
-  ];
+  constructor(private prisma: PrismaService) {}
 
-  create(createUserInput: CreateUserInput) {
-    const user = {
-      ...createUserInput,
-      id: this.users.length + 1,
-    };
+  async create(createUserInput: CreateUserInput): Promise<BaseUser | null> {
+    const password = await hash(createUserInput.password, 10);
 
-    this.users.push(user);
+    const lowercaseEmail = createUserInput.email.toLowerCase();
+    const account = await this.prisma.account.create({
+      data: {
+        password,
+        email: lowercaseEmail,
+        user: {
+          create: {
+            profileImage:
+              'https://api.dicebear.com/6.x/adventurer/svg?seed=Simba',
+          },
+        },
+      },
+      select: {
+        user: {
+          select: BaseUserPrismaSelect,
+        },
+      },
+    });
 
-    return user;
+    return account?.user;
   }
 
-  findAll() {
-    return this.users;
+  async findAccountForUser({
+    userId,
+  }: {
+    userId: string;
+  }): Promise<{ password: string } | null> {
+    const accountForUser = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        account: {
+          select: {
+            password: true,
+          },
+        },
+      },
+    });
+
+    return accountForUser?.account || null;
   }
 
-  findOne(username: string) {
-    return this.users.find((user) => user.username === username);
+  async findAll(): Promise<BaseUser[]> {
+    return await this.prisma.user.findMany({ select: BaseUserPrismaSelect });
+  }
+
+  async findByEmail(email: string): Promise<BaseUser | null> {
+    const account = await this.prisma.account.findFirst({
+      where: { email: email },
+      select: {
+        user: {
+          select: BaseUserPrismaSelect,
+        },
+      },
+    });
+
+    return account?.user;
   }
 }

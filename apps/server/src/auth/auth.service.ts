@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
-import { User } from 'src/users/entities/user.entity';
+import { BaseUser } from 'src/users/entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import { LoginUserInput } from './dto/login-user.input';
-import { hash, compare } from 'bcrypt';
+import { compare } from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -12,21 +12,42 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async validateUser(username: string, password: string) {
-    const user = await this.usersService.findOne(username);
+  async validateUser(
+    email: string,
+    password: string,
+  ): Promise<BaseUser | null> {
+    console.log('hej hej 5666');
+    const user = await this.usersService.findByEmail(email);
+    console.log('6');
 
-    const isValidPassword = await compare(password, user?.password);
-
-    if (user && isValidPassword) {
-      const { password, ...result } = user;
-
-      return result;
+    if (!user) {
+      return null;
     }
+    console.log('7');
+
+    const account = await this.usersService.findAccountForUser({
+      userId: user.id,
+    });
+    console.log('8');
+
+    if (!account) {
+      return null;
+    }
+    console.log('9');
+
+    const isValidPassword = await compare(password, account.password);
+
+    if (isValidPassword) {
+      return user;
+    }
+    console.log('10');
 
     return null;
   }
 
-  async login(user: User) {
+  async login(user: BaseUser) {
+    console.log('jjjjasasas');
+
     return {
       access_token: this.jwtService.sign({
         username: user.username,
@@ -36,18 +57,15 @@ export class AuthService {
     };
   }
 
-  async signup(loginUserInput: LoginUserInput) {
-    const user = await this.usersService.findOne(loginUserInput.username);
+  async signup(loginUserInput: LoginUserInput): Promise<BaseUser | null> {
+    console.log('55555');
+    const user = await this.usersService.findByEmail(loginUserInput.email);
 
     if (user) {
       throw new Error('User already exists');
+      return null;
     }
 
-    const password = await hash(loginUserInput.password, 10);
-
-    return this.usersService.create({
-      ...loginUserInput,
-      password,
-    });
+    return this.usersService.create(loginUserInput);
   }
 }

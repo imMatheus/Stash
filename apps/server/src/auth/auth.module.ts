@@ -6,7 +6,6 @@ import { PassportModule } from '@nestjs/passport';
 import { UsersModule } from 'src/users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt-strategy';
-import { ConfigService } from '@nestjs/config';
 import { config } from 'src/config';
 
 @Module({
@@ -16,8 +15,9 @@ import { config } from 'src/config';
     JwtModule.registerAsync({
       useFactory: () => ({
         signOptions: {
-          expiresIn: '60s',
+          expiresIn: config().JWT_TTL_IN_SECONDS,
         },
+        global: true,
         secret: config().JWT_SECRET,
       }),
     }),
