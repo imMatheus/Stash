@@ -5,6 +5,7 @@ import { Eye, EyeOff } from "react-feather";
 import { useSignUp } from "~/graphql/auth/useSignUp";
 import { Alert, AlertDescription, AlertTitle } from "~/components/Alert";
 import { Button } from "~/components/Button";
+import { useToast } from "~/components/Toast";
 
 const SignUp: NextPage = () => {
   const [inputStates, setInputStates] = useState({
@@ -17,6 +18,7 @@ const SignUp: NextPage = () => {
     },
   });
   const [signUpMutation, { loading, error }] = useSignUp();
+  const { toast } = useToast();
 
   async function handleSignUp() {
     console.log("doing sin up");
@@ -33,6 +35,10 @@ const SignUp: NextPage = () => {
 
       if (res.data) {
         localStorage.setItem("auth-token", res.data.signup.access_token);
+        toast({
+          title: "Scheduled: Catch up",
+          description: "Friday, February 10, 2023 at 5:57 PM",
+        });
       }
 
       console.log("got ressssss");
