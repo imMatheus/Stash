@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import type { NextPage } from "next";
 import { Eye, EyeOff } from "react-feather";
-import { useSignUp } from "~/graphql/auth/useSignUp";
 import { Alert, AlertDescription, AlertTitle } from "~/components/Alert";
 import { Button } from "~/components/Button";
+import { useLogin } from "~/graphql/auth/useLogin";
 
-const SignUpPage: NextPage = () => {
+const LoginPage: NextPage = () => {
   const [inputStates, setInputStates] = useState({
     email: {
       value: "",
@@ -15,13 +15,13 @@ const SignUpPage: NextPage = () => {
       showPassword: false,
     },
   });
-  const [signUpMutation, { loading, error }] = useSignUp();
+  const [loginMutation, { loading, error }] = useLogin();
 
-  async function handleSignUp() {
+  async function handleLogin() {
     console.log("doing sin up");
 
     try {
-      await signUpMutation({
+      await loginMutation({
         variables: {
           params: {
             email: inputStates.email.value,
@@ -34,19 +34,17 @@ const SignUpPage: NextPage = () => {
     }
   }
 
-  console.log({ error, loading });
-
   const EyeIcon = inputStates.password.showPassword ? Eye : EyeOff;
 
   return (
     <div className="px-10 py-14">
       <div>
-        <h1 className="text-center font-black text-3xl">Sign up</h1>
+        <h1 className="text-center font-black text-3xl">Login</h1>
         <form
           className="max-w-sm mt-10 mx-auto"
           onSubmit={(e) => {
             e.preventDefault();
-            handleSignUp();
+            handleLogin();
           }}
         >
           <div className="mb-5">
@@ -106,12 +104,12 @@ const SignUpPage: NextPage = () => {
 
           <div className="mt-4 flex justify-end">
             <Button variant="default" type="submit">
-              {loading ? "Loading.." : "Sign up"}
+              {loading ? "Loading.." : "Login"}
             </Button>
           </div>
           {error && (
             <Alert variant="error" className="mt-4">
-              <AlertTitle>Could not sign up!</AlertTitle>
+              <AlertTitle>Could not Login!</AlertTitle>
               <AlertDescription>{error.message}</AlertDescription>
             </Alert>
           )}
@@ -121,4 +119,4 @@ const SignUpPage: NextPage = () => {
   );
 };
 
-export default SignUpPage;
+export default LoginPage;

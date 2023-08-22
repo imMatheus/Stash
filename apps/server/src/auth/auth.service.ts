@@ -20,7 +20,9 @@ export class AuthService {
     const user = await this.usersService.findByEmail(email);
 
     if (!user) {
-      return null;
+      throw new Error(
+        'Could not find user with that email or the password is wrong',
+      );
     }
 
     const account = await this.usersService.findAccountForUser({
@@ -37,7 +39,9 @@ export class AuthService {
       return user;
     }
 
-    return null;
+    throw new Error(
+      'Could not find user with that email or the password is wrong',
+    );
   }
 
   async login(user: BaseUser): Promise<LoginResponse> {
