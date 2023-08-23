@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import type { NextPage } from "next";
 import { Eye, EyeOff } from "react-feather";
-import { Alert, AlertDescription, AlertTitle } from "~/components/Alert";
-import { Button } from "~/components/Button";
+import { Alert, AlertDescription, AlertTitle } from "~/ui/components/Alert";
+import { Button } from "~/ui/components/Button";
 import { useLogin } from "~/graphql/auth/useLogin";
 
 const LoginPage: NextPage = () => {

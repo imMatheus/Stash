@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { useToast } from "~/components/Toast";
+import { useToast } from "~/ui/components/Toast";
 import { graphql } from "~/generated/graphql";
 import { useMe } from "./useMe";
 import { useRouter } from "next/router";

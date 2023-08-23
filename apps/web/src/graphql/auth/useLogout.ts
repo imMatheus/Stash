@@ -3,7 +3,7 @@ import { graphql } from "~/generated/graphql";
 import { useMe } from "./useMe";
 import { removeAuthToken } from "./utils";
 import { useRouter } from "next/router";
-import { useToast } from "~/components/Toast";
+import { useToast } from "~/ui/components/Toast";
 
 export const useLogout = () => {
   const router = useRouter();

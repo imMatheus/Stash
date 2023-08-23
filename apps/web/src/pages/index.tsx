@@ -6,19 +6,7 @@ import { useQuery } from "@apollo/client";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const REPORTS_QUERY = graphql(/* GraphQL */ `
-  query GetStores {
-    stores {
-      exampleField
-    }
-  }
-`);
-
 export default function Home() {
-  const { data } = useQuery(REPORTS_QUERY);
-
-  console.log({ data: data });
-
   return (
     <>
       <Head>
@@ -27,9 +15,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={inter.className}>
-        <pre>{JSON.stringify(data?.stores[0], null, 2)}</pre>
-      </main>
+      <main className={inter.className}>hej</main>
     </>
   );
 }

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import type { NextPage } from "next";
 import { Eye, EyeOff } from "react-feather";
 import { useSignUp } from "~/graphql/auth/useSignUp";
-import { Alert, AlertDescription, AlertTitle } from "~/components/Alert";
-import { Button } from "~/components/Button";
+import { Alert, AlertDescription, AlertTitle } from "~/ui/components/Alert";
+import { Button } from "~/ui/components/Button";
 
 const SignUpPage: NextPage = () => {
   const [inputStates, setInputStates] = useState({

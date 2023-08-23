@@ -2,7 +2,7 @@ import { useMutation } from "@apollo/client";
 import { useCallback } from "react";
 import { graphql } from "~/generated/graphql";
 import { setAuthToken } from "./utils";
-import { useToast } from "~/components/Toast";
+import { useToast } from "~/ui/components/Toast";
 import { useMe } from "./useMe";
 import { useRouter } from "next/router";
 

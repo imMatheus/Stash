@@ -4,7 +4,8 @@ import { graphql } from "~/generated/graphql";
 const MY_STORES_QUERY = graphql(/* GraphQL */ `
   query MyStores {
     stores {
-      exampleField
+      id
+      name
     }
   }
 `);
