@@ -9,6 +9,30 @@ type BaseAccount {
   updatedAt: DateTime!
 }
 
+type BaseStore {
+  createdAt: DateTime!
+
+  """Id of store"""
+  id: String!
+
+  """Name of store"""
+  name: String!
+  updatedAt: DateTime!
+}
+
+type BaseStoreMember {
+  createdAt: DateTime!
+
+  """Id of member"""
+  id: String!
+
+  """Role of the user"""
+  role: StoreMemberRole!
+  updatedAt: DateTime!
+  user: BaseUser!
+  userId: String!
+}
+
 type BaseUser {
   createdAt: DateTime!
   id: String!
@@ -38,24 +62,38 @@ input LoginUserInput {
 }
 
 type Mutation {
-  createStore(createStoreInput: CreateStoreInput!): Store!
+  createStore(createStoreInput: CreateStoreInput!): BaseStore!
   login(loginUserInput: LoginUserInput!): LoginResponse!
-  removeStore(id: Int!): Store!
+  removeStore(id: Int!): BaseStore!
   signup(signUpInput: LoginUserInput!): LoginResponse!
-  updateStore(updateStoreInput: UpdateStoreInput!): Store!
+  updateStore(updateStoreInput: UpdateStoreInput!): BaseStore!
 }
 
 type Query {
   me: BaseUser
-  store(id: Int!): Store!
-  stores: [Store!]!
+  store(id: String!): StoreWithMembers!
+  stores: [BaseStore!]!
   user(email: String!): BaseUser
   users: [BaseUser!]!
 }
 
-type Store {
-  """Example field (placeholder)"""
-  exampleField: Int!
+enum StoreMemberRole {
+  ADMIN
+  OWNER
+}
+
+type StoreWithMembers {
+  createdAt: DateTime!
+
+  """Id of store"""
+  id: String!
+
+  """Members of the store"""
+  members: [BaseStoreMember!]!
+
+  """Name of store"""
+  name: String!
+  updatedAt: DateTime!
 }
 
 input UpdateStoreInput {

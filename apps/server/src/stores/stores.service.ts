@@ -56,7 +56,7 @@ export class StoresService {
         },
       },
       select: StoreWithMembersPrismaSelect,
-    });
+    }) as any;
   }
 
   update(id: number, updateStoreInput: UpdateStoreInput) {

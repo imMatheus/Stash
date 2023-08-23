@@ -1,22 +1,17 @@
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, registerEnumType } from '@nestjs/graphql';
 import { WithDates } from 'src/base-entitys';
 import { BaseUser, BaseUserPrismaSelect } from 'src/users/entities/user.entity';
 import { BaseStore, BaseStorePrismaSelect } from './store.entity';
-import type { Prisma, StoreMember } from '@prisma/client';
+import { type Prisma, StoreMemberRole } from '@prisma/client';
 import type { DefaultArgs } from '@prisma/client/runtime/library';
 
-type MemberRole = StoreMember['role'];
-enum MemberRoleEnum {
-  'OWNER',
-  'ADMIN',
-}
 @ObjectType()
 export class BaseStoreMember extends WithDates {
   @Field(() => String, { description: 'Id of member' })
   id: string;
 
-  @Field(() => MemberRoleEnum, { description: 'Role of the user' })
-  role: MemberRole;
+  @Field(() => StoreMemberRole, { description: 'Role of the user' })
+  role: StoreMemberRole;
 
   @Field(() => String)
   userId: string;
@@ -24,6 +19,10 @@ export class BaseStoreMember extends WithDates {
   @Field(() => BaseUser)
   user: BaseUser;
 }
+
+registerEnumType(StoreMemberRole, {
+  name: 'StoreMemberRole',
+});
 
 export const BaseStoreMemberPrismaSelect = {
   id: true,

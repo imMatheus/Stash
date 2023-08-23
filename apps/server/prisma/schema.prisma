@@ -1,6 +1,5 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["filteredRelationCount"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -43,20 +42,20 @@ model Store {
   @@index([name])
 }
 
-enum Role {
+enum StoreMemberRole {
   OWNER
   ADMIN
 }
 
 model StoreMember {
-  id        String   @id @default(cuid())
-  role      Role     @default(ADMIN)
+  id        String          @id @default(cuid())
+  role      StoreMemberRole @default(ADMIN)
   userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  user      User            @relation(fields: [userId], references: [id])
   storeId   String
-  store     Store    @relation(fields: [storeId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
+  store     Store           @relation(fields: [storeId], references: [id])
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @default(now()) @updatedAt
 
   @@unique([userId, storeId]) // same user cant be in the same store twice
   @@index([userId])
