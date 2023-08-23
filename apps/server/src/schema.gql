@@ -18,8 +18,8 @@ type BaseUser {
 }
 
 input CreateStoreInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """Name of the store"""
+  name: String!
 }
 
 """
@@ -59,7 +59,8 @@ type Store {
 }
 
 input UpdateStoreInput {
-  """Example field (placeholder)"""
-  exampleField: Int
   id: Int!
+
+  """Name of the store"""
+  name: String
 }

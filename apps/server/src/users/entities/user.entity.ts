@@ -16,13 +16,13 @@ export class BaseUser extends WithDates {
   profileImage: string;
 }
 
-export const BaseUserPrismaSelect: Prisma.UserSelect<DefaultArgs> = {
+export const BaseUserPrismaSelect = {
   id: true,
   profileImage: true,
   username: true,
   createdAt: true,
   updatedAt: true,
-};
+} satisfies Prisma.UserSelect<DefaultArgs>;
 
 @ObjectType()
 export class UserWithAccount extends BaseUser {
@@ -33,9 +33,9 @@ export class UserWithAccount extends BaseUser {
   account: BaseAccount;
 }
 
-export const UserWithAccountPrismaSelect: Prisma.UserSelect<DefaultArgs> = {
+export const UserWithAccountPrismaSelect = {
   accountId: true,
   account: {
     select: BaseAccountPrismaSelect,
   },
-};
+} satisfies Prisma.UserSelect<DefaultArgs>;

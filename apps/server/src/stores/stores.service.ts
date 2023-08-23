@@ -1,20 +1,62 @@
 import { Injectable } from '@nestjs/common';
 import { CreateStoreInput } from './dto/create-store.input';
 import { UpdateStoreInput } from './dto/update-store.input';
-import { Store } from './entities/store.entity';
+import {
+  BaseStore,
+  BaseStorePrismaSelect,
+  StoreWithMembers,
+  StoreWithMembersPrismaSelect,
+} from './entities/store.entity';
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class StoresService {
-  create(createStoreInput: CreateStoreInput) {
-    return 'This action adds a new store';
+  constructor(private prisma: PrismaService) {}
+
+  async create(
+    createStoreInput: CreateStoreInput,
+    userId: string,
+  ): Promise<BaseStore> {
+    const createdStore = await this.prisma.store.create({
+      data: {
+        name: createStoreInput.name,
+        members: {
+          create: {
+            userId: userId,
+          },
+        },
+      },
+      select: BaseStorePrismaSelect,
+    });
+
+    return createdStore;
   }
 
-  findAll(): Store[] {
-    return [{ exampleField: 2 }, { exampleField: 4 }];
+  async findAll(userId: string): Promise<BaseStore[]> {
+    return this.prisma.store.findMany({
+      where: {
+        members: {
+          some: {
+            userId,
+          },
+        },
+      },
+      select: BaseStorePrismaSelect,
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} store`;
+  findOne(storeId: string, userId: string): Promise<StoreWithMembers> {
+    return this.prisma.store.findFirst({
+      where: {
+        id: storeId,
+        members: {
+          some: {
+            userId,
+          },
+        },
+      },
+      select: StoreWithMembersPrismaSelect,
+    });
   }
 
   update(id: number, updateStoreInput: UpdateStoreInput) {

@@ -14,14 +14,15 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
   const logout = useLogout();
 
   return (
-    <header className="bg-primary py-3 px-5 text-white">
-      <div className="flex items-center justify-between">
+    <header className="bg-primary h-16 flex items-center py-3 px-5 text-white">
+      <div className="flex items-center w-full justify-between">
         <Link href="/">
           <h2 className="text-2xl font-bold tracking-widest">Stash</h2>
         </Link>
         <nav className="flex items-center gap-2">
           {me ? (
             <>
+              <Link href="/stores">Stores</Link>
               <Image
                 className="w-8 h-8 rounded-full bg-white"
                 height={32}

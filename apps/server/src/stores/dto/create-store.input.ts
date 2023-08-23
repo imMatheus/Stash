@@ -1,7 +1,9 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
+import { Length } from 'class-validator';
 
 @InputType()
 export class CreateStoreInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @Length(2, 35)
+  @Field(() => String, { description: 'Name of the store' })
+  name: string;
 }

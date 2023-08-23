@@ -8,10 +8,12 @@
     "codegen": "graphql-codegen --config codegen.ts",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write ./src"
   },
   "dependencies": {
     "@apollo/client": "^3.8.1",
+    "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/react-toast": "^1.1.4",
     "@types/node": "20.5.0",
     "@types/react": "18.2.20",

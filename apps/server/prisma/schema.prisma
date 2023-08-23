@@ -10,11 +10,10 @@ datasource db {
 }
 
 model Account {
-  id       String @id @default(cuid())
-  email    String @unique
-  password String
-  user     User?
-
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  user      User?
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 
@@ -22,21 +21,44 @@ model Account {
 }
 
 model User {
-  id           String  @id @default(cuid())
+  id           String        @id @default(cuid())
   username     String?
   profileImage String
-  accountId    String  @unique
-  account      Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
+  accountId    String        @unique
+  account      Account       @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @default(now()) @updatedAt
+  stores       StoreMember[]
 
   @@index([accountId])
 }
 
 model Store {
+  id        String        @id @default(cuid())
+  name      String
+  members   StoreMember[]
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @default(now()) @updatedAt
+
+  @@index([name])
+}
+
+enum Role {
+  OWNER
+  ADMIN
+}
+
+model StoreMember {
   id        String   @id @default(cuid())
-  name      String   @unique
+  role      Role     @default(ADMIN)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  storeId   String
+  store     Store    @relation(fields: [storeId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
+
+  @@unique([userId, storeId]) // same user cant be in the same store twice
+  @@index([userId])
+  @@index([storeId])
 }

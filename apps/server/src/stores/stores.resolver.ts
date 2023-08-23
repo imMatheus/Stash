@@ -1,34 +1,40 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, Context } from '@nestjs/graphql';
 import { StoresService } from './stores.service';
-import { Store } from './entities/store.entity';
+import { BaseStore } from './entities/store.entity';
 import { CreateStoreInput } from './dto/create-store.input';
 import { UpdateStoreInput } from './dto/update-store.input';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
-@Resolver(() => Store)
+@UseGuards(JwtAuthGuard)
+@Resolver(() => BaseStore)
 export class StoresResolver {
   constructor(private readonly storesService: StoresService) {}
 
-  @Mutation(() => Store)
-  createStore(@Args('createStoreInput') createStoreInput: CreateStoreInput) {
-    return this.storesService.create(createStoreInput);
+  @Mutation(() => BaseStore, { name: 'createStore' })
+  createStore(
+    @Args('createStoreInput') createStoreInput: CreateStoreInput,
+    @Context() context,
+  ) {
+    return this.storesService.create(createStoreInput, context.req.user.userId);
   }
 
-  @Query(() => [Store], { name: 'stores' })
-  findAll() {
-    return this.storesService.findAll();
+  @Query(() => [BaseStore], { name: 'stores' })
+  findAll(@Context() context) {
+    return this.storesService.findAll(context.req.user.userId);
   }
 
-  @Query(() => Store, { name: 'store' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.storesService.findOne(id);
+  @Query(() => BaseStore, { name: 'store' })
+  findOne(@Args('id', { type: () => String }) id: string, @Context() context) {
+    return this.storesService.findOne(id, context.req.user.userId);
   }
 
-  @Mutation(() => Store)
+  @Mutation(() => BaseStore, { name: 'updateStore' })
   updateStore(@Args('updateStoreInput') updateStoreInput: UpdateStoreInput) {
     return this.storesService.update(updateStoreInput.id, updateStoreInput);
   }
 
-  @Mutation(() => Store)
+  @Mutation(() => BaseStore, { name: 'removeStore' })
   removeStore(@Args('id', { type: () => Int }) id: number) {
     return this.storesService.remove(id);
   }
