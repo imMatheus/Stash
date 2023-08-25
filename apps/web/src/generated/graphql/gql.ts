@@ -16,8 +16,8 @@ const documents = {
     "\n  mutation LoginMutation($params: LoginUserInput!) {\n    login(loginUserInput: $params) {\n      access_token\n      user {\n        id\n        createdAt\n        profileImage\n        username\n      }\n    }\n  }\n": types.LoginMutationDocument,
     "\n  query MeQuery {\n    me {\n      id\n      createdAt\n      profileImage\n      username\n    }\n  }\n": types.MeQueryDocument,
     "\n  mutation SignUpMutation($params: LoginUserInput!) {\n    signup(signUpInput: $params) {\n      access_token\n      user {\n        id\n        profileImage\n        username\n        createdAt\n      }\n    }\n  }\n": types.SignUpMutationDocument,
-    "\n  mutation CreateStoreMutation($params: CreateStoreInput!) {\n    createStore(createStoreInput: $params) {\n      id\n      name\n    }\n  }\n": types.CreateStoreMutationDocument,
-    "\n  query MyStores {\n    stores {\n      id\n      name\n    }\n  }\n": types.MyStoresDocument,
+    "\n  mutation CreateStoreMutation($params: CreateStoreInput!) {\n    createStore(createStoreInput: $params) {\n      id\n      name\n      productsCount\n    }\n  }\n": types.CreateStoreMutationDocument,
+    "\n  query MyStores {\n    stores {\n      id\n      name\n      productsCount\n    }\n  }\n": types.MyStoresDocument,
 };
 
 /**
@@ -49,11 +49,11 @@ export function graphql(source: "\n  mutation SignUpMutation($params: LoginUserI
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation CreateStoreMutation($params: CreateStoreInput!) {\n    createStore(createStoreInput: $params) {\n      id\n      name\n    }\n  }\n"): (typeof documents)["\n  mutation CreateStoreMutation($params: CreateStoreInput!) {\n    createStore(createStoreInput: $params) {\n      id\n      name\n    }\n  }\n"];
+export function graphql(source: "\n  mutation CreateStoreMutation($params: CreateStoreInput!) {\n    createStore(createStoreInput: $params) {\n      id\n      name\n      productsCount\n    }\n  }\n"): (typeof documents)["\n  mutation CreateStoreMutation($params: CreateStoreInput!) {\n    createStore(createStoreInput: $params) {\n      id\n      name\n      productsCount\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query MyStores {\n    stores {\n      id\n      name\n    }\n  }\n"): (typeof documents)["\n  query MyStores {\n    stores {\n      id\n      name\n    }\n  }\n"];
+export function graphql(source: "\n  query MyStores {\n    stores {\n      id\n      name\n      productsCount\n    }\n  }\n"): (typeof documents)["\n  query MyStores {\n    stores {\n      id\n      name\n      productsCount\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

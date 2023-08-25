@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "sh -ac '. ./.env; concurrently yarn:dev:*'",
+    "dev:start": "next dev",
     "dev:codegen": "graphql-codegen --watch",
     "codegen": "graphql-codegen --config codegen.ts",
     "build": "next build",
@@ -32,10 +33,12 @@
     "zod": "^3.22.2"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/cli": "^4.0.0",
     "@graphql-codegen/client-preset": "^4.1.0",
     "@graphql-codegen/introspection": "^4.0.0",
+    "@parcel/watcher": "^2.3.0",
     "autoprefixer": "^10.4.15",
+    "concurrently": "^8.2.1",
     "postcss": "^8.4.28",
     "prettier": "^3.0.2",
     "prettier-plugin-tailwindcss": "^0.5.3",

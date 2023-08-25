@@ -32,7 +32,7 @@ export class StoresService {
     return createdStore;
   }
 
-  async findAll(userId: string): Promise<BaseStore[]> {
+  async findAll(userId?: string): Promise<StoreWithMembers[]> {
     return this.prisma.store.findMany({
       where: {
         members: {
@@ -41,7 +41,7 @@ export class StoresService {
           },
         },
       },
-      select: BaseStorePrismaSelect,
+      select: StoreWithMembersPrismaSelect,
     });
   }
 

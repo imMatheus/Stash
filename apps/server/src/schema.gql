@@ -17,6 +17,9 @@ type BaseStore {
 
   """Name of store"""
   name: String!
+
+  """The number of products in store"""
+  productsCount: Int!
   updatedAt: DateTime!
 }
 
@@ -71,6 +74,7 @@ type Mutation {
 
 type Query {
   me: BaseUser
+  myStores: [BaseStore!]!
   store(id: String!): StoreWithMembers!
   stores: [BaseStore!]!
   user(email: String!): BaseUser
@@ -93,6 +97,9 @@ type StoreWithMembers {
 
   """Name of store"""
   name: String!
+
+  """The number of products in store"""
+  productsCount: Int!
   updatedAt: DateTime!
 }
 

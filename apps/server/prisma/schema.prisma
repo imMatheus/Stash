@@ -33,11 +33,12 @@ model User {
 }
 
 model Store {
-  id        String        @id @default(cuid())
-  name      String
-  members   StoreMember[]
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @default(now()) @updatedAt
+  id            String        @id @default(cuid())
+  name          String
+  members       StoreMember[]
+  productsCount Int           @default(0)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @default(now()) @updatedAt
 
   @@index([name])
 }

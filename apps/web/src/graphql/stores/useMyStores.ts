@@ -6,6 +6,7 @@ const MY_STORES_QUERY = graphql(/* GraphQL */ `
     stores {
       id
       name
+      productsCount
     }
   }
 `);

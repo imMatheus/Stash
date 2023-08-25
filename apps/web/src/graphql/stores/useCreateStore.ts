@@ -9,6 +9,7 @@ const CREATE_STORE_MUTATION = graphql(/* GraphQL */ `
     createStore(createStoreInput: $params) {
       id
       name
+      productsCount
     }
   }
 `);

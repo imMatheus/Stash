@@ -20,7 +20,12 @@ export class StoresResolver {
   }
 
   @Query(() => [BaseStore], { name: 'stores' })
-  findAll(@Context() context): Promise<BaseStore[]> {
+  findAll(): Promise<BaseStore[]> {
+    return this.storesService.findAll();
+  }
+
+  @Query(() => [BaseStore], { name: 'myStores' })
+  findMyStores(@Context() context): Promise<StoreWithMembers[]> {
     return this.storesService.findAll(context.req.user.userId);
   }
 

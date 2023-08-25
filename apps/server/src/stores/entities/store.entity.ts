@@ -1,4 +1,4 @@
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { WithDates } from 'src/base-entitys';
 import { BaseStoreMember, BaseStoreMemberPrismaSelect } from './member.entity';
 import type { Prisma } from '@prisma/client';
@@ -11,11 +11,15 @@ export class BaseStore extends WithDates {
 
   @Field(() => String, { description: 'Name of store' })
   name: string;
+
+  @Field(() => Int, { description: 'The number of products in store' })
+  productsCount: number;
 }
 
 export const BaseStorePrismaSelect = {
   id: true,
   name: true,
+  productsCount: true,
   createdAt: true,
   updatedAt: true,
 } satisfies Prisma.StoreSelect<DefaultArgs>;
@@ -27,9 +31,6 @@ export class StoreWithMembers extends BaseStore {
 }
 
 export const StoreWithMembersPrismaSelect = {
-  id: true,
-  name: true,
+  ...BaseStorePrismaSelect,
   members: { select: BaseStoreMemberPrismaSelect },
-  createdAt: true,
-  updatedAt: true,
 } satisfies Prisma.StoreSelect<DefaultArgs>;
