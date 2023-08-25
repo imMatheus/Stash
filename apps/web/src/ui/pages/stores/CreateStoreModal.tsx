@@ -40,8 +40,6 @@ export const CreateStoreModal: React.FC<CreateStoreModalProps> = ({
   });
 
   async function handleCreateStore(values: z.infer<typeof formSchema>) {
-    console.log(values);
-
     await createStore({ variables: { params: { name: values.name } } });
   }
 
