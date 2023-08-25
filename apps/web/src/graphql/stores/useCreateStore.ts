@@ -1,4 +1,5 @@
 import { useMutation } from "@apollo/client";
+import { useRouter } from "next/router";
 import { useCallback } from "react";
 import { graphql } from "~/generated/graphql";
 import { useToast } from "~/ui/components/Toast";
@@ -15,6 +16,7 @@ const CREATE_STORE_MUTATION = graphql(/* GraphQL */ `
 export const useCreateStore = () => {
   const [mutation, state] = useMutation(CREATE_STORE_MUTATION);
   const { toast } = useToast();
+  const router = useRouter();
 
   const createStore: typeof mutation = useCallback(
     (options) => {
@@ -24,6 +26,7 @@ export const useCreateStore = () => {
           const store = data?.createStore;
 
           if (store) {
+            router.push(`/stores/${data.createStore.id}`);
             toast({
               title: "Success! Created store",
               description: "Friday, February 10, 2023 at 5:57 PM",

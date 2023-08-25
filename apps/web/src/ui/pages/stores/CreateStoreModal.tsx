@@ -20,8 +20,10 @@ interface CreateStoreModalProps {
   children: React.ReactNode;
 }
 
+const STORE_NAME_MAX_LENGTH = 50;
+
 const formSchema = z.object({
-  name: z.string().min(2).max(50),
+  name: z.string().min(2).max(STORE_NAME_MAX_LENGTH),
 });
 
 export const CreateStoreModal: React.FC<CreateStoreModalProps> = ({
@@ -29,7 +31,7 @@ export const CreateStoreModal: React.FC<CreateStoreModalProps> = ({
 }) => {
   const [createStore, state] = useCreateStore();
   const router = useRouter();
-  // 1. Define your form.
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -41,12 +43,6 @@ export const CreateStoreModal: React.FC<CreateStoreModalProps> = ({
     console.log(values);
 
     await createStore({ variables: { params: { name: values.name } } });
-
-    console.log("state, ", state);
-
-    if (state.data) {
-      router.push(`/stores/${state.data.createStore.id}`);
-    }
   }
 
   return (
@@ -63,6 +59,7 @@ export const CreateStoreModal: React.FC<CreateStoreModalProps> = ({
           <label htmlFor="create-store-name-input">
             <h5 className="text-sm text-gray-500 mb-1">Name</h5>
             <Input
+              maxLength={STORE_NAME_MAX_LENGTH}
               id="create-store-name-input"
               {...form.register("name", { required: true })}
             />
@@ -72,7 +69,7 @@ export const CreateStoreModal: React.FC<CreateStoreModalProps> = ({
             <Button
               type="submit"
               isLoading={state.loading}
-              disabled={!!form.formState.errors.root}
+              disabled={!form.formState.isValid}
             >
               Create store
             </Button>
