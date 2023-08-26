@@ -41,9 +41,9 @@ const SignUpPage: NextPage = () => {
   return (
     <div className="px-10 py-14">
       <div>
-        <h1 className="text-center font-black text-3xl">Sign up</h1>
+        <h1 className="text-center text-3xl font-black">Sign up</h1>
         <form
-          className="max-w-sm mt-10 mx-auto"
+          className="mx-auto mt-10 max-w-sm"
           onSubmit={(e) => {
             e.preventDefault();
             handleSignUp();
@@ -53,7 +53,7 @@ const SignUpPage: NextPage = () => {
             <label htmlFor="sign-up-email-input" className="text-gray-500">
               Email
             </label>
-            <div className="flex items-center rounded-md mt-1 py-1.5 px-2.5 border focus-within:border-primary">
+            <div className="mt-1 flex items-center rounded-md border px-2.5 py-1.5 focus-within:border-primary">
               <input
                 id="sign-up-email-input"
                 type="email"
@@ -73,13 +73,13 @@ const SignUpPage: NextPage = () => {
 
           <label className="mb-3" htmlFor="sign-up-password-input">
             <h3 className="text-gray-500">Password</h3>
-            <div className="flex items-center rounded-md mt-1 py-1.5 px-2.5 border focus-within:border-primary">
+            <div className="mt-1 flex items-center rounded-md border px-2.5 py-1.5 focus-within:border-primary">
               <input
                 id="sign-up-password-input"
                 type={inputStates.password.showPassword ? "text" : "password"}
                 placeholder="password"
                 autoComplete="current-password"
-                className="w-full mr-1 outline-none"
+                className="mr-1 w-full outline-none"
                 value={inputStates.password.value}
                 onChange={(event) => {
                   setInputStates((c) => {
@@ -89,7 +89,7 @@ const SignUpPage: NextPage = () => {
                 }}
               />
               <EyeIcon
-                className="w-5 h-5 text-gray-400 cursor-pointer"
+                className="h-5 w-5 cursor-pointer text-gray-400"
                 onClick={() => {
                   const toggledState = !inputStates.password.showPassword;
                   setInputStates((c) => {

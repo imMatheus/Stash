@@ -55,7 +55,7 @@ export const CreateStoreModal: React.FC<CreateStoreModalProps> = ({
             </DialogDescription>
           </DialogHeader>
           <label htmlFor="create-store-name-input">
-            <h5 className="text-sm text-gray-500 mb-1">Name</h5>
+            <h5 className="mb-1 text-sm text-gray-500">Name</h5>
             <Input
               maxLength={STORE_NAME_MAX_LENGTH}
               id="create-store-name-input"
