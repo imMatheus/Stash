@@ -1,13 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { CreateStoreInput } from './dto/create-store.input';
 import { UpdateStoreInput } from './dto/update-store.input';
-import {
-  BaseStore,
-  BaseStorePrismaSelect,
-  StoreWithMembers,
-  StoreWithMembersPrismaSelect,
-} from './entities/store.entity';
+import { BaseStore, BaseStorePrismaSelect } from './entities/store.entity';
 import { PrismaService } from 'src/prisma.service';
+import {
+  BaseStoreMember,
+  BaseStoreMemberPrismaSelect,
+} from './entities/member.entity';
 
 @Injectable()
 export class StoresService {
@@ -32,7 +31,7 @@ export class StoresService {
     return createdStore;
   }
 
-  async findAll(userId?: string): Promise<StoreWithMembers[]> {
+  async findAll(userId?: string): Promise<BaseStore[]> {
     return this.prisma.store.findMany({
       where: {
         members: {
@@ -41,11 +40,20 @@ export class StoresService {
           },
         },
       },
-      select: StoreWithMembersPrismaSelect,
+      select: BaseStorePrismaSelect,
     });
   }
 
-  findOne(storeId: string, userId: string): Promise<StoreWithMembers> {
+  async findMembers(storeId: string): Promise<BaseStoreMember[]> {
+    return this.prisma.storeMember.findMany({
+      where: {
+        storeId,
+      },
+      select: BaseStoreMemberPrismaSelect,
+    });
+  }
+
+  findOne(storeId: string, userId: string): Promise<BaseStore> {
     return this.prisma.store.findFirst({
       where: {
         id: storeId,
@@ -55,7 +63,7 @@ export class StoresService {
           },
         },
       },
-      select: StoreWithMembersPrismaSelect,
+      select: BaseStorePrismaSelect,
     }) as any;
   }
 

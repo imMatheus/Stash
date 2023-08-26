@@ -23,14 +23,3 @@ export const BaseStorePrismaSelect = {
   createdAt: true,
   updatedAt: true,
 } satisfies Prisma.StoreSelect<DefaultArgs>;
-
-@ObjectType()
-export class StoreWithMembers extends BaseStore {
-  @Field(() => [BaseStoreMember], { description: 'Members of the store' })
-  members: BaseStoreMember[];
-}
-
-export const StoreWithMembersPrismaSelect = {
-  ...BaseStorePrismaSelect,
-  members: { select: BaseStoreMemberPrismaSelect },
-} satisfies Prisma.StoreSelect<DefaultArgs>;

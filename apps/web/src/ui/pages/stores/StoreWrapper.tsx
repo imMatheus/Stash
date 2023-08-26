@@ -10,7 +10,7 @@ export const StoreWrapper: React.FC<StoreWrapperProps> = ({ children }) => {
     <div className="flex h-[calc(100vh_-_64px)] overflow-hidden">
       <StoreSidebar />
 
-      <main>{children}</main>
+      <main className="flex-1 overflow-y-auto p-6 md:p-8">{children}</main>
     </div>
   );
 };

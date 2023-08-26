@@ -11,6 +11,16 @@ const STORE_BY_ID_QUERY = graphql(/* GraphQL */ `
       id
       name
       productsCount
+      createdAt
+      members {
+        id
+        userId
+        user {
+          id
+          profileImage
+          username
+        }
+      }
     }
   }
 `);
