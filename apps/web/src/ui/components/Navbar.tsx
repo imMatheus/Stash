@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import { useMe } from "~/graphql/auth/useMe";
 import { Button } from "./Button";
 import { useLogout } from "~/graphql/auth/useLogout";
@@ -12,7 +12,6 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
   const me = data?.me;
   console.log(me);
   const logout = useLogout();
-  const [count, setCount] = useState(0);
 
   return (
     <header className="bg-primary h-16 flex items-center py-3 px-5 text-white">
@@ -20,7 +19,6 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
         <Link href="/">
           <h2 className="text-2xl font-bold tracking-widest">Stash</h2>
         </Link>
-        <button onClick={() => setCount((c) => c + 1)}>count: {count}</button>
         <nav className="flex items-center gap-2">
           {me ? (
             <>

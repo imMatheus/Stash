@@ -75,7 +75,7 @@ type Mutation {
 type Query {
   me: BaseUser
   myStores: [BaseStore!]!
-  store(id: String!): StoreWithMembers!
+  store(id: String!): StoreWithMembers
   stores: [BaseStore!]!
   user(email: String!): BaseUser
   users: [BaseUser!]!

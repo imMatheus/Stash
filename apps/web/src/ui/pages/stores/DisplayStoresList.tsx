@@ -7,7 +7,7 @@ interface DisplayStoresListProps {}
 
 export const DisplayStoresList: React.FC<DisplayStoresListProps> = ({}) => {
   const { data, loading } = useMyStores();
-  const stores = data?.stores;
+  const stores = data?.myStores;
 
   if (loading) return <Spinner />;
 
@@ -16,7 +16,7 @@ export const DisplayStoresList: React.FC<DisplayStoresListProps> = ({}) => {
 
   return (
     <div className="grid gap-4 grid-cols-4 py-4">
-      {data.stores.map((store) => (
+      {stores.map((store) => (
         <Link
           href={`/stores/${store.id}`}
           key={store.id}

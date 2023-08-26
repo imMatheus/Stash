@@ -750,13 +750,9 @@
               }
             ],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "StoreWithMembers",
-                "ofType": null
-              }
+              "kind": "OBJECT",
+              "name": "StoreWithMembers",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null

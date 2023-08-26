@@ -3,7 +3,7 @@ import { graphql } from "~/generated/graphql";
 
 const MY_STORES_QUERY = graphql(/* GraphQL */ `
   query MyStores {
-    stores {
+    myStores {
       id
       name
       productsCount

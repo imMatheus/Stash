@@ -29,7 +29,7 @@ export class StoresResolver {
     return this.storesService.findAll(context.req.user.userId);
   }
 
-  @Query(() => StoreWithMembers, { name: 'store' })
+  @Query(() => StoreWithMembers, { name: 'store', nullable: true })
   findOne(
     @Args('id', { type: () => String }) id: string,
     @Context() context,
