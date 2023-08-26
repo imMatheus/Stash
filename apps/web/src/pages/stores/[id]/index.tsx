@@ -1,10 +1,10 @@
 import React from "react";
-import type { NextPage } from "next";
 import { useStoreById } from "~/graphql/stores/useStoreById";
 import { useRouter } from "next/router";
-import { Camera } from "react-feather";
+import { StoreWrapper } from "~/ui/pages/stores/StoreWrapper";
+import { NextPageWithLayout } from "~/pages/_app";
 
-const StorePage: NextPage = () => {
+const StorePage: NextPageWithLayout = () => {
   const router = useRouter();
   const id = router.query.id;
   const { data, loading } = useStoreById({
@@ -18,21 +18,11 @@ const StorePage: NextPage = () => {
 
   if (!store) return <div>404 could not find store</div>;
 
-  return (
-    <div>
-      <main className="flex h-[calc(100vh_-_64px)] overflow-hidden">
-        <aside className="w-48 flex-shrink-0 bg-secondary p-3">
-          <h3 className="mb-3 font-semibold">{store.name}</h3>
-          <div className="space-y-2">
-            <div className="flex items-center">
-              <Camera className="h-4 w-4" />
-            </div>
-          </div>
-        </aside>
-        <pre className="text-xl">{JSON.stringify(data, null, 2)}</pre>
-      </main>
-    </div>
-  );
+  return <pre className="text-xl">{JSON.stringify(data, null, 2)}</pre>;
+};
+
+StorePage.getLayout = function getLayout(page) {
+  return <StoreWrapper>{page}</StoreWrapper>;
 };
 
 export default StorePage;
