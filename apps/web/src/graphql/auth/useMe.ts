@@ -13,7 +13,7 @@ const ME_QUERY = graphql(/* GraphQL */ `
 `);
 
 export const useMe = () => {
-  const query = useQuery(ME_QUERY);
+  const query = useQuery(ME_QUERY, { nextFetchPolicy: "cache-first" });
 
   return query;
 };
