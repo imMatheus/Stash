@@ -33,7 +33,7 @@ type BaseStoreMember {
   """Role of the user"""
   role: StoreMemberRole!
   updatedAt: DateTime!
-  user: BaseUser!
+  user: UserWithAccount!
   userId: String!
 }
 
@@ -92,4 +92,14 @@ input UpdateStoreInput {
 
   """Name of the store"""
   name: String
+}
+
+type UserWithAccount {
+  account: BaseAccount!
+  accountId: String!
+  createdAt: DateTime!
+  id: String!
+  profileImage: String!
+  updatedAt: DateTime!
+  username: String
 }

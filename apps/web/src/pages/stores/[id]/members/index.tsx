@@ -4,6 +4,7 @@ import { NextPageWithLayout } from "~/pages/_app";
 import { useStoreById } from "~/graphql/stores/useStoreById";
 import { useRouter } from "next/router";
 import { Button } from "~/ui/components/Button";
+import { MembersTable } from "~/ui/pages/stores/members/MembersTable";
 
 const MembersPage: NextPageWithLayout = () => {
   const router = useRouter();
@@ -16,42 +17,13 @@ const MembersPage: NextPageWithLayout = () => {
   if (loading) return "loading...";
   if (!store) return "Could not find store";
 
-  const f = [
-    ...store.members,
-    ...store.members,
-    ...store.members,
-    ...store.members,
-    ...store.members,
-    ...store.members,
-    ...store.members,
-    ...store.members,
-    ...store.members,
-    ...store.members,
-  ];
   return (
     <div className="">
       <div className="mb-4 flex justify-between">
         <h3 className="text-2xl font-medium">Members</h3>
         <Button>Add members</Button>
       </div>
-      <div className="w-full rounded-lg border shadow-sm">
-        <table className="w-full">
-          <thead className="border-b">
-            <th className="p-4 text-start">Name</th>
-            <th className="p-4 text-start">Producter</th>
-            <th className="p-4 text-start">Role</th>
-          </thead>
-          <tbody>
-            {f.map((member) => (
-              <tr key={member.id} className="odd:bg-gray-100">
-                <td className="p-4">abc</td>
-                <td className="p-4">abc 2</td>
-                <td className="p-4">abc</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <MembersTable members={store.members} />
     </div>
   );
 };

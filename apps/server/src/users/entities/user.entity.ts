@@ -34,6 +34,7 @@ export class UserWithAccount extends BaseUser {
 }
 
 export const UserWithAccountPrismaSelect = {
+  ...BaseUserPrismaSelect,
   accountId: true,
   account: {
     select: BaseAccountPrismaSelect,

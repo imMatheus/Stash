@@ -15,11 +15,17 @@ const STORE_BY_ID_QUERY = graphql(/* GraphQL */ `
       members {
         id
         userId
+        role
         user {
           id
           profileImage
           username
+          account {
+            id
+            email
+          }
         }
+        createdAt
       }
     }
   }

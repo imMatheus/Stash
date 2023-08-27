@@ -18,7 +18,7 @@ const documents = {
     "\n  mutation SignUpMutation($params: LoginUserInput!) {\n    signup(signUpInput: $params) {\n      access_token\n      user {\n        id\n        profileImage\n        username\n        createdAt\n      }\n    }\n  }\n": types.SignUpMutationDocument,
     "\n  mutation CreateStoreMutation($params: CreateStoreInput!) {\n    createStore(createStoreInput: $params) {\n      id\n      name\n      productsCount\n    }\n  }\n": types.CreateStoreMutationDocument,
     "\n  query MyStores {\n    myStores {\n      id\n      name\n      productsCount\n    }\n  }\n": types.MyStoresDocument,
-    "\n  query StoreById($id: String!) {\n    store(id: $id) {\n      id\n      name\n      productsCount\n      createdAt\n      members {\n        id\n        userId\n        user {\n          id\n          profileImage\n          username\n        }\n      }\n    }\n  }\n": types.StoreByIdDocument,
+    "\n  query StoreById($id: String!) {\n    store(id: $id) {\n      id\n      name\n      productsCount\n      createdAt\n      members {\n        id\n        userId\n        role\n        user {\n          id\n          profileImage\n          username\n          account {\n            id\n            email\n          }\n        }\n        createdAt\n      }\n    }\n  }\n": types.StoreByIdDocument,
 };
 
 /**
@@ -58,7 +58,7 @@ export function graphql(source: "\n  query MyStores {\n    myStores {\n      id\
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query StoreById($id: String!) {\n    store(id: $id) {\n      id\n      name\n      productsCount\n      createdAt\n      members {\n        id\n        userId\n        user {\n          id\n          profileImage\n          username\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query StoreById($id: String!) {\n    store(id: $id) {\n      id\n      name\n      productsCount\n      createdAt\n      members {\n        id\n        userId\n        user {\n          id\n          profileImage\n          username\n        }\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query StoreById($id: String!) {\n    store(id: $id) {\n      id\n      name\n      productsCount\n      createdAt\n      members {\n        id\n        userId\n        role\n        user {\n          id\n          profileImage\n          username\n          account {\n            id\n            email\n          }\n        }\n        createdAt\n      }\n    }\n  }\n"): (typeof documents)["\n  query StoreById($id: String!) {\n    store(id: $id) {\n      id\n      name\n      productsCount\n      createdAt\n      members {\n        id\n        userId\n        role\n        user {\n          id\n          profileImage\n          username\n          account {\n            id\n            email\n          }\n        }\n        createdAt\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

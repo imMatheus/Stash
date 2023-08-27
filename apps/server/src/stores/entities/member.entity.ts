@@ -1,7 +1,9 @@
 import { ObjectType, Field, registerEnumType } from '@nestjs/graphql';
 import { WithDates } from 'src/base-entitys';
-import { BaseUser, BaseUserPrismaSelect } from 'src/users/entities/user.entity';
-import { BaseStore, BaseStorePrismaSelect } from './store.entity';
+import {
+  UserWithAccount,
+  UserWithAccountPrismaSelect,
+} from 'src/users/entities/user.entity';
 import { type Prisma, StoreMemberRole } from '@prisma/client';
 import type { DefaultArgs } from '@prisma/client/runtime/library';
 
@@ -16,8 +18,8 @@ export class BaseStoreMember extends WithDates {
   @Field(() => String)
   userId: string;
 
-  @Field(() => BaseUser)
-  user: BaseUser;
+  @Field(() => UserWithAccount)
+  user: UserWithAccount;
 }
 
 registerEnumType(StoreMemberRole, {
@@ -28,9 +30,7 @@ export const BaseStoreMemberPrismaSelect = {
   id: true,
   role: true,
   userId: true,
-  user: {
-    select: BaseUserPrismaSelect,
-  },
+  user: { select: UserWithAccountPrismaSelect },
   createdAt: true,
   updatedAt: true,
 } satisfies Prisma.StoreMemberSelect<DefaultArgs>;
