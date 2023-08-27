@@ -41,12 +41,12 @@ export const columns: ColumnDef<StoreMember>[] = [
       const role = member.role;
 
       const formattedRole: Record<typeof role, string> = {
-        [StoreMemberRole.Admin]: "Admin",
         [StoreMemberRole.Owner]: "Owner",
+        [StoreMemberRole.Admin]: "Admin",
       };
 
       return (
-        <div className={cn(role === "ADMIN" && "font-medium")}>
+        <div className={cn(role === StoreMemberRole.Owner && "font-medium")}>
           {formattedRole[role]}
         </div>
       );

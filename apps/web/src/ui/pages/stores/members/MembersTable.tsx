@@ -30,20 +30,8 @@ interface MembersTableProps {
 }
 
 export const MembersTable: React.FC<MembersTableProps> = ({ members }) => {
-  const f = [
-    ...members,
-    ...members,
-    ...members,
-    ...members,
-    ...members,
-    ...members,
-    ...members,
-    ...members,
-    ...members,
-    ...members,
-  ];
   const table = useReactTable({
-    data: f,
+    data: members,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });

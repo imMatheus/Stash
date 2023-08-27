@@ -22,6 +22,7 @@ export class StoresService {
         members: {
           create: {
             userId: userId,
+            role: 'OWNER',
           },
         },
       },
